@@ -1,0 +1,16 @@
+syntax = "proto3";
+package stbchain.stablecoin.v1;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "stbchain/x/stablecoin/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (amino.name) = "stbchain/x/stablecoin/Params";
+  option (gogoproto.equal) = true;
+  string issuer = 1; // эмитент, кто имеет право mint/burn
+  string denom  = 2; // "ustb"
+  bool paused   = 3;
+}
