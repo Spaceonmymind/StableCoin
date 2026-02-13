@@ -23,7 +23,7 @@ func NewParams(issuer, denom string, paused bool) Params {
 
 func DefaultParams() Params {
 	return Params{
-		Issuer: "cosmos1hrmuzfpfhd2qh68tuzpd42qet6f0m3506jt888", // alice
+		Issuer: "cosmos19jvll7zgcj6fafavwa8e5gns77shtt8dr430g8", // alice
 		Denom:  "ustb",
 		Paused: false,
 	}
