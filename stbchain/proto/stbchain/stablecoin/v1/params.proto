@@ -13,4 +13,5 @@ message Params {
   string issuer = 1; // эмитент, кто имеет право mint/burn
   string denom  = 2; // "ustb"
   bool paused   = 3;
+  string max_supply = 4;
 }

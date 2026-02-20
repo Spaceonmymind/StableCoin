@@ -17,3 +17,4 @@ const (
 
 // ParamsKey is the prefix to retrieve all Params
 var ParamsKey = collections.NewPrefix(1)
+var TotalSupplyKey = []byte{0x10}

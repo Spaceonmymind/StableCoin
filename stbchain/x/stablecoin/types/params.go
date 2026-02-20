@@ -3,6 +3,7 @@ package types
 import (
 	"strings"
 
+	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
@@ -13,19 +14,21 @@ const (
 )
 
 // NewParams creates a new Params instance.
-func NewParams(issuer, denom string, paused bool) Params {
+func NewParams(issuer, denom string, paused bool, maxSupply string) Params {
 	return Params{
-		Issuer: issuer,
-		Denom:  denom,
-		Paused: paused,
+		Issuer:    issuer,
+		Denom:     denom,
+		Paused:    paused,
+		MaxSupply: maxSupply,
 	}
 }
 
 func DefaultParams() Params {
 	return Params{
-		Issuer: "cosmos19jvll7zgcj6fafavwa8e5gns77shtt8dr430g8", // alice
-		Denom:  "ustb",
-		Paused: false,
+		Issuer:    "cosmos19jvll7zgcj6fafavwa8e5gns77shtt8dr430g8",
+		Denom:     "ustb",
+		Paused:    false,
+		MaxSupply: "1000000000000000", // пример лимита
 	}
 }
 
@@ -42,6 +45,14 @@ func (p Params) Validate() error {
 	}
 	if _, err := sdk.AccAddressFromBech32(p.Issuer); err != nil {
 		return ErrInvalidIssuer
+	}
+
+	if strings.TrimSpace(p.MaxSupply) == "" {
+		return ErrInvalidMaxSupply
+	}
+	max, ok := math.NewIntFromString(p.MaxSupply)
+	if !ok || !max.IsPositive() {
+		return ErrInvalidMaxSupply
 	}
 
 	return nil
